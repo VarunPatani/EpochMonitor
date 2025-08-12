@@ -1,0 +1,4 @@
+epoch,duration_seconds,cpu_percent,ram_percent,gpu_mem_percent,gpu_mem_used_mb
+1,2.0,1.9,"svmem(total=67102760960, available=61033984000, percent=9.0, used=5624283136, free=54675058688, active=5910298624, inactive=4631601152, buffers=417894400, cached=6385524736, shared=96464896, slab=883757056)",6.99,1144.625
+2,2.0,2.1,"svmem(total=67102760960, available=61035765760, percent=9.0, used=5620264960, free=54676840448, active=5911257088, inactive=4631601152, buffers=417902592, cached=6387752960, shared=98693120, slab=883757056)",6.99,1144.5625
+3,2.0,1.8,"svmem(total=67102760960, available=61045141504, percent=9.0, used=5610897408, free=54686224384, active=5910872064, inactive=4631609344, buffers=417902592, cached=6387736576, shared=98693120, slab=883752960)",6.99,1144.5
