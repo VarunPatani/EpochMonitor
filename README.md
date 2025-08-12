@@ -11,7 +11,7 @@ Get crucial insights into your model's performance and resource consumption, all
 
 ---
 
-## ✨ Features
+## Features
 
 - **Easy Integration**: Use it as a simple function decorator or a flexible context manager.
 - **Comprehensive Metrics**: Tracks epoch duration, total training time, CPU utilization, and RAM usage (in % and MB).
@@ -22,9 +22,86 @@ Get crucial insights into your model's performance and resource consumption, all
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 You can install `EpochMonitor` directly from PyPI:
 
 ```bash
 pip install epochmonitor
+```
+
+
+## Usage
+
+### As a Decorator (Simplest Method)
+
+Just add `@EpochMonitor()` on top of your training function.  
+The monitor object will be injected into your function as a keyword argument.
+
+```python
+import time
+from epochmonitor import EpochMonitor
+from tqdm import tqdm
+
+@EpochMonitor(log_file_prefix="my_model_log", file_format="json")
+def train_my_model(epochs, learning_rate, monitor=None):
+    for epoch in tqdm(range(epochs), desc="Training Model"):
+        monitor.start_epoch()
+        print(f"-> Training with lr={learning_rate}...")
+        time.sleep(2)  # Simulating work
+        monitor.end_epoch()
+
+train_my_model(epochs=5, learning_rate=0.01)
+```
+
+
+### As a Context Manager (More Control)
+
+Use a `with` statement for explicit control.
+
+```python
+import time
+from epochmonitor import EpochMonitor
+from tqdm import tqdm
+
+def another_training_run(epochs):
+    with EpochMonitor(log_file_prefix="context_run_log") as monitor:
+        for epoch in tqdm(range(epochs), desc="Training Model"):
+            monitor.start_epoch()
+            time.sleep(1.5)  # Simulating work
+            monitor.end_epoch()
+
+another_training_run(epochs=3)
+```
+
+
+### Listing Available GPUs
+If you have multiple GPUs, list them first:
+```python
+from epochmonitor import EpochMonitor
+
+# Prints all detected NVIDIA GPUs and indices
+EpochMonitor.list_gpus()
+
+# Example: Monitor GPU at index 1
+# @EpochMonitor(gpu_index=1)
+# def train_on_second_gpu(...):
+#     ...
+```
+
+### Contributing
+Contributions are welcome!
+Whether it's:
+
+    Reporting a bug 🐛
+
+    Suggesting a feature 💡
+
+    Submitting a pull request 📥
+
+Please read the Contributing Guidelines before starting.
+
+### License
+
+This project is licensed under the MIT License.
+See the LICENSE file for details.
